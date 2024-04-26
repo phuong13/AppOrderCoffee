@@ -5,6 +5,11 @@ public class Category {
     private String ImagePath;
     private  String Name;
 
+    @Override
+    public String toString() {
+        return Name;
+    }
+
     public Category(){
     }
 

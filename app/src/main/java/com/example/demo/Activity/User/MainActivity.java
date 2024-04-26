@@ -15,10 +15,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.PopupMenu;
 
-import com.example.demo.Activity.Admin.Admin_MainActivity;
+import com.example.demo.Activity.Admin.AdminMainActivity;
 import com.example.demo.Activity.BaseActivity;
-import com.example.demo.Adapter.BestFoodAdapter;
-import com.example.demo.Adapter.CategoryAdapter;
+import com.example.demo.Adapter.User.BestFoodAdapter;
+import com.example.demo.Adapter.User.CategoryAdapter;
 import com.example.demo.Model.Category;
 import com.example.demo.Model.Food;
 import com.example.demo.Model.Location;
@@ -79,8 +79,7 @@ public class MainActivity extends BaseActivity {
         binding.textView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Admin_MainActivity.class));
-
+                startActivity(new Intent(MainActivity.this, AdminMainActivity.class));
             }
         });
 
@@ -139,7 +138,6 @@ public class MainActivity extends BaseActivity {
                                 startActivity(ascendingIntent);
                                 return true;
                             case 1:
-
                                 // Tạo Intent và chuyển đến ListFoodActivity
                                 Intent descendingIntent = new Intent(MainActivity.this, ListFoodActivity.class);
                                 descendingIntent.putExtra("isDescending", true);
@@ -204,7 +202,6 @@ public class MainActivity extends BaseActivity {
                     binding.progressBarCategory.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

@@ -26,5 +26,4 @@ public class Time {
 
     private String Value;
     public Time(){}
-
 }

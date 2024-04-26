@@ -15,6 +15,16 @@ public class Food implements Serializable {
     private double Star;
     private String Title;
     private int numberInCart;
+    private String Key;
+
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
+    }
+
     public Food(){}
 
 
@@ -118,4 +128,6 @@ public class Food implements Serializable {
     public void setNumberInCart(int numberInCart) {
         this.numberInCart = numberInCart;
     }
+
+
 }

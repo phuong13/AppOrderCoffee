@@ -1,6 +1,5 @@
 package com.example.demo.Activity.User;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,12 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.demo.Activity.BaseActivity;
-import com.example.demo.Adapter.CartAdapter;
-import com.example.demo.Helper.ChangeNumberItemsListener;
+import com.example.demo.Adapter.User.CartAdapter;
 import com.example.demo.Helper.ManagmentCart;
-import com.example.demo.R;
 import com.example.demo.databinding.ActivityCartBinding;
-import com.example.demo.databinding.ActivityDetailBinding;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

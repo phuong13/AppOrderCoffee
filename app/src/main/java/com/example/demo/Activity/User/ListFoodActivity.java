@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.view.View;
 
 import com.example.demo.Activity.BaseActivity;
-import com.example.demo.Adapter.FoodListAdapter;
+import com.example.demo.Adapter.User.FoodListAdapter;
 import com.example.demo.Model.Food;
 import com.example.demo.databinding.ActivityListFoodBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +35,12 @@ public class ListFoodActivity extends BaseActivity {
     private boolean isViewCategory;
     private boolean isDescending;
     private boolean isAscending;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initListFood();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

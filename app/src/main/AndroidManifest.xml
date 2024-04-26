@@ -13,7 +13,13 @@
         android:theme="@style/Theme.Demo"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.Admin.Admin_MainActivity"
+            android:name=".Activity.Admin.UpdateFoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.AddFoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.AdminMainActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.User.CartActivity"
@@ -32,7 +38,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.User.SignUpActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Activity.User.LoginActivity"
             android:exported="false" />

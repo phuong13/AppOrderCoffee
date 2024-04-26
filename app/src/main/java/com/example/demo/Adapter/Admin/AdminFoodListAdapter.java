@@ -1,6 +1,9 @@
-package com.example.demo.Activity.Admin;
+package com.example.demo.Adapter.Admin;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.example.demo.Adapter.FoodListAdapter;
+import com.example.demo.Activity.Admin.UpdateFoodActivity;
+import com.example.demo.Activity.User.DetailActivity;
 import com.example.demo.Model.Food;
 import com.example.demo.R;
+import com.google.firebase.database.DatabaseReference;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,12 +30,16 @@ public class AdminFoodListAdapter extends RecyclerView.Adapter<AdminFoodListAdap
 
     ArrayList<Food> items;
     Context context;
+    DatabaseReference databaseRef;
+
+    public AdminFoodListAdapter(ArrayList<Food> items, DatabaseReference databaseRef) {
+        this.items = items;
+        this.databaseRef = databaseRef;
+    }
 
     public AdminFoodListAdapter(ArrayList<Food> items) {
         this.items =items;
     }
-
-
 
     @NonNull
     @Override
@@ -52,7 +61,40 @@ public class AdminFoodListAdapter extends RecyclerView.Adapter<AdminFoodListAdap
                 .transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
 
-        
+
+
+        holder.delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure you want to delete this item?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, id) -> {
+                            // Lấy key của mục từ Food
+                            String foodKey = items.get(position).getKey();
+                            // Xóa mục từ Firebase
+                            databaseRef.child(foodKey).removeValue();
+                            // Xóa mục khỏi ArrayList và cập nhật RecyclerView
+                            items.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, getItemCount());
+                        })
+                        .setNegativeButton("No", (dialog, id) -> {
+                            dialog.dismiss();
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        holder.editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(context, UpdateFoodActivity.class);
+                intent.putExtra("object1",items.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -75,4 +117,6 @@ public class AdminFoodListAdapter extends RecyclerView.Adapter<AdminFoodListAdap
             pic = itemView.findViewById(R.id.img);
         }
     }
+
+
 }

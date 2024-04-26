@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.demo.Activity.BaseActivity;
+import com.example.demo.Adapter.Admin.AdminFoodListAdapter;
 import com.example.demo.Model.Food;
 import com.example.demo.databinding.ActivityAdminMainBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -18,9 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Admin_MainActivity extends BaseActivity {
+public class AdminMainActivity extends BaseActivity {
     ActivityAdminMainBinding binding;
     private RecyclerView.Adapter adapterListFood;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initListFood();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,12 @@ public class Admin_MainActivity extends BaseActivity {
 
     private void setVariable() {
         binding.buttonBack.setOnClickListener(v -> finish());
+        binding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminMainActivity.this, AddFoodActivity.class));
+            }
+        });
     }
 
     private void initListFood() {
@@ -47,18 +61,19 @@ public class Admin_MainActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for (DataSnapshot issue : snapshot.getChildren()) {
-                        list.add(issue.getValue(Food.class));
+                        Food food = issue.getValue(Food.class);
+                        food.setKey(issue.getKey()); // Gán key cho mỗi Food
+                        list.add(food);
                     }
 
                     if (list.size() > 0) {
-                        binding.recyclerViewListFood.setLayoutManager(new GridLayoutManager(Admin_MainActivity.this, 1));
-                        adapterListFood = new AdminFoodListAdapter(list);
+                        binding.recyclerViewListFood.setLayoutManager(new GridLayoutManager(AdminMainActivity.this, 1));
+                        adapterListFood = new AdminFoodListAdapter(list,myRef);
                         binding.recyclerViewListFood.setAdapter(adapterListFood);
                     }
                     binding.progressBarListFood.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

@@ -31,12 +31,8 @@ public class DetailActivity extends BaseActivity {
 
     private void setVariable() {
         managmentCart =new ManagmentCart(this);
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        binding.btnBack.setOnClickListener(v -> finish());
+
         Glide.with(DetailActivity.this)
                 .load(object.getImagePath())
                 .into(binding.pic);

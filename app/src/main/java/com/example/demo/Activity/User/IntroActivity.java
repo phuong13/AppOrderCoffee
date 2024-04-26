@@ -18,8 +18,6 @@ public class IntroActivity extends BaseActivity {
 
         setVariable();
         getWindow().setStatusBarColor(Color.parseColor("#F75564"));
-
-
     }
 
     private void setVariable() {

@@ -1,4 +1,4 @@
-package com.example.demo.Adapter;
+package com.example.demo.Adapter.User;
 
 import android.content.Context;
 import android.content.Intent;
